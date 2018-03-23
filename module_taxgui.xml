@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="module_taxgui" default="compile.module.taxgui">
+  <dirname property="module.taxgui.basedir" file="${ant.file.module_taxgui}"/>
+  
+  <property name="module.jdk.home.taxgui" value="${project.jdk.home}"/>
+  <property name="module.jdk.bin.taxgui" value="${project.jdk.bin}"/>
+  <property name="module.jdk.classpath.taxgui" value="${project.jdk.classpath}"/>
+  
+  <property name="compiler.args.taxgui" value="-encoding UTF-8 -source 1.8 -target 1.8 ${compiler.args}"/>
+  
+  <property name="taxgui.output.dir" value="${module.taxgui.basedir}/out/production/TaxGUI"/>
+  <property name="taxgui.testoutput.dir" value="${module.taxgui.basedir}/out/test/TaxGUI"/>
+  
+  <path id="taxgui.module.bootclasspath">
+    <!-- Paths to be included in compilation bootclasspath -->
+  </path>
+  
+  <path id="taxgui.module.production.classpath">
+    <path refid="${module.jdk.classpath.taxgui}"/>
+    <path refid="library.json-simple-1.1.1.classpath"/>
+    <pathelement location="${basedir}/../../Downloads/opensuse/json-simple-1.1.1.jar"/>
+    <pathelement location="${basedir}/../../Downloads/opensuse/json-simple-1.1.jar"/>
+  </path>
+  
+  <path id="taxgui.runtime.production.module.classpath">
+    <pathelement location="${taxgui.output.dir}"/>
+    <path refid="library.json-simple-1.1.1.classpath"/>
+    <pathelement location="${basedir}/../../Downloads/opensuse/json-simple-1.1.1.jar"/>
+    <pathelement location="${basedir}/../../Downloads/opensuse/json-simple-1.1.jar"/>
+  </path>
+  
+  <path id="taxgui.module.classpath">
+    <path refid="${module.jdk.classpath.taxgui}"/>
+    <pathelement location="${taxgui.output.dir}"/>
+    <path refid="library.json-simple-1.1.1.classpath"/>
+    <pathelement location="${basedir}/../../Downloads/opensuse/json-simple-1.1.1.jar"/>
+    <pathelement location="${basedir}/../../Downloads/opensuse/json-simple-1.1.jar"/>
+  </path>
+  
+  <path id="taxgui.runtime.module.classpath">
+    <pathelement location="${taxgui.testoutput.dir}"/>
+    <pathelement location="${taxgui.output.dir}"/>
+    <path refid="library.json-simple-1.1.1.classpath"/>
+    <pathelement location="${basedir}/../../Downloads/opensuse/json-simple-1.1.1.jar"/>
+    <pathelement location="${basedir}/../../Downloads/opensuse/json-simple-1.1.jar"/>
+  </path>
+  
+  
+  <patternset id="excluded.from.module.taxgui">
+    <patternset refid="ignored.files"/>
+  </patternset>
+  
+  <patternset id="excluded.from.compilation.taxgui">
+    <patternset refid="excluded.from.module.taxgui"/>
+  </patternset>
+  
+  <path id="taxgui.module.sourcepath">
+    <dirset dir="${module.taxgui.basedir}">
+      <include name="src"/>
+    </dirset>
+  </path>
+  
+  
+  <target name="compile.module.taxgui" depends="compile.module.taxgui.production,compile.module.taxgui.tests" description="Compile module TaxGUI"/>
+  
+  <target name="compile.module.taxgui.production" depends="register.custom.compilers" description="Compile module TaxGUI; production classes">
+    <mkdir dir="${taxgui.output.dir}"/>
+    <javac2 destdir="${taxgui.output.dir}" debug="${compiler.debug}" nowarn="${compiler.generate.no.warnings}" memorymaximumsize="${compiler.max.memory}" fork="true" executable="${module.jdk.bin.taxgui}/javac">
+      <compilerarg line="${compiler.args.taxgui}"/>
+      <bootclasspath refid="taxgui.module.bootclasspath"/>
+      <classpath refid="taxgui.module.production.classpath"/>
+      <src refid="taxgui.module.sourcepath"/>
+      <patternset refid="excluded.from.compilation.taxgui"/>
+    </javac2>
+    
+    <copy todir="${taxgui.output.dir}">
+      <fileset dir="${module.taxgui.basedir}/src">
+        <patternset refid="compiler.resources"/>
+        <type type="file"/>
+      </fileset>
+    </copy>
+  </target>
+  
+  <target name="compile.module.taxgui.tests" depends="register.custom.compilers,compile.module.taxgui.production" description="compile module TaxGUI; test classes" unless="skip.tests"/>
+  
+  <target name="clean.module.taxgui" description="cleanup module">
+    <delete dir="${taxgui.output.dir}"/>
+    <delete dir="${taxgui.testoutput.dir}"/>
+  </target>
+</project>

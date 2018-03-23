@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<eclipse-userlibraries>
+  <library name="json-simple-1.1.1">
+    <archive path="/Users/den/Downloads/opensuse/json-simple-1.1.1.jar" />
+    <archive path="/Users/den/Downloads/opensuse/json-simple-1.1.jar" />
+  </library>
+</eclipse-userlibraries>
+

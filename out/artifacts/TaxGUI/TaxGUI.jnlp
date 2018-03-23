@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<jnlp spec="1.0" xmlns:jfx="http://javafx.com" href="TaxGUI.jnlp">
+  <information>
+    <title>TaxGUI</title>
+    <vendor>Unknown</vendor>
+    <description>TaxGUI</description>
+    <offline-allowed/>
+  </information>
+  <resources>
+    <j2se version="1.6+" href="http://java.sun.com/products/autodl/j2se"/>
+    <jar href="TaxGUI.jar" size="5496" download="eager" />
+  </resources>
+  <jfx:javafx-desc  width="600" height="400" main-class="sample.Main"  name="TaxGUI" />
+  <update check="background"/>
+</jnlp>
